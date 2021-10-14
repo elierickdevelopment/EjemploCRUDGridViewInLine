@@ -61,8 +61,10 @@ namespace EjemploCRUDGridViewInLine
             {
                 if ((e.Row.RowState & DataControlRowState.Edit) > 0)
                 {
-                    DropDownList ddlMake = (DropDownList)e.Row.FindControl("DropDownList_region");
-                    ddlMake.SelectedValue = GridView1.DataKeys[e.Row.RowIndex].Values["IdRegion"].ToString();
+                    DropDownList ddlregion = (DropDownList)e.Row.FindControl("DropDownList_region");
+                    
+                    //establecemos el id de la región correspondiente en el row que estamos editando:
+                    ddlregion.SelectedValue = GridView1.DataKeys[e.Row.RowIndex].Values["IdRegion"].ToString();
                 }
             }
         }
