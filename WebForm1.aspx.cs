@@ -19,13 +19,36 @@ namespace EjemploCRUDGridViewInLine
 
         protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            e.Cancel = true;
+
             int IdRow = Convert.ToInt32(GridView1.Rows[e.RowIndex].Cells[1].Text);
             TextBox txtDescripcion = (TextBox)GridView1.Rows[e.RowIndex].Cells[2].Controls[0];
             DropDownList ddlRegion = (DropDownList)GridView1.Rows[e.RowIndex].FindControl("DropDownList_region");
             string IdRegion = ddlRegion.SelectedValue;
 
-            SqlDataSource1.UpdateCommand = "UPDATE [dbo].[Pais] SET Descripcion = '" + txtDescripcion.Text.Trim() + "' , IdRegion= " + IdRegion + " WHERE id = " + IdRow;
+            //CON SQLDATASOURCE:
+            //SqlDataSource1.UpdateCommand = "UPDATE [dbo].[Pais] SET Descripcion = '" + txtDescripcion.Text.Trim() + "' , IdRegion= " + IdRegion + " WHERE id = " + IdRow;
+
+            //CON SP:
+            DataSet ds = new DataSet();
+            var parametros = new SqlParameter[] {
+                        new SqlParameter("@IdPais", IdRow.ToString()),
+                        new SqlParameter("@IdRegion", IdRegion.ToString()),
+                        new SqlParameter("@Descripcion", txtDescripcion.Text.Trim()),
+                    };
+
+            General.EjecutarQuery("dbo.Sp_UpdatePais", parametros, ref ds);
+            if (ds.Tables.Count > 0)
+            {
+                string exito = ds.Tables[0].Rows[0]["exito"].ToString();
+                string mensajeSql = ds.Tables[0].Rows[0]["mensaje"].ToString();
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "myscript", "alert('" + mensajeSql + "');", true);
+            }
+
+            GridView1.EditIndex = -1;
             GridView1.DataBind();
+            
         }
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -68,5 +91,9 @@ namespace EjemploCRUDGridViewInLine
                 }
             }
         }
+
+
+        
+
     }
 }
