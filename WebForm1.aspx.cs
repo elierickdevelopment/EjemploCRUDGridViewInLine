@@ -25,11 +25,11 @@ namespace EjemploCRUDGridViewInLine
             TextBox txtDescripcion = (TextBox)GridView1.Rows[e.RowIndex].Cells[2].Controls[0];
             DropDownList ddlRegion = (DropDownList)GridView1.Rows[e.RowIndex].FindControl("DropDownList_region");
             string IdRegion = ddlRegion.SelectedValue;
-
+            
             //CON SQLDATASOURCE:
             //SqlDataSource1.UpdateCommand = "UPDATE [dbo].[Pais] SET Descripcion = '" + txtDescripcion.Text.Trim() + "' , IdRegion= " + IdRegion + " WHERE id = " + IdRow;
 
-            //CON SP:
+            //CON SP Y PARAMETER:
             DataSet ds = new DataSet();
             var parametros = new SqlParameter[] {
                         new SqlParameter("@IdPais", IdRow.ToString()),
