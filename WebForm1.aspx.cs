@@ -117,5 +117,17 @@ namespace EjemploCRUDGridViewInLine
         {
 
         }
+
+        protected void Button_verultimoId_Click(object sender, EventArgs e)
+        {
+            General FG = new General();
+            DataSet ds = new DataSet();
+            string querySql = "Select max(id) as Cod from Pais";
+            
+            if (FG.ObtenerDatos(querySql, ref ds)) {
+                string cod = ds.Tables[0].Rows[0]["Cod"].ToString();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "myscript", "alert(' el último cod es :" + cod + "');", true);
+            }
+        }
     }
 }

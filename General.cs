@@ -44,6 +44,30 @@ namespace EjemploCRUDGridViewInLine
             }
         }
 
+        public bool ObtenerDatos(string consulta, ref DataSet ds)
+        {
+            bool ok = false;
+            using (SqlConnection conX = new SqlConnection(CONNECTION_STRING))
+            {
+                try
+                {
+                    SqlDataAdapter daConsulta = new SqlDataAdapter(consulta, conX);
+                    ds = new DataSet();
+                    daConsulta.Fill(ds, "0");
+                    if (ds.Tables["0"].Rows.Count > 0)
+                        ok = true;
+                    else
+                        ok = false;
+                }
+                catch (SqlException ex)
+                {
+                    ok = false;
+                }
+            }
+            return ok;
+        }
+
+
     }
 
 }

@@ -46,6 +46,7 @@
             <br />
             <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Large" ForeColor="#FF3300" Text="Label"></asp:Label>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT p.id, p.Descripcion, p.IdRegion, r.Region FROM Pais AS p LEFT OUTER JOIN Catalogo_Region AS r ON p.IdRegion = r.Id"></asp:SqlDataSource>
+            <asp:Button ID="Button_verultimoId" runat="server" OnClick="Button_verultimoId_Click" Text="VER ÚLTIMO ID" />
             <asp:SqlDataSource ID="SqlDataSource_region" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [Id], [Region] FROM [Catalogo_Region]"></asp:SqlDataSource>
         </div>
     </form>
