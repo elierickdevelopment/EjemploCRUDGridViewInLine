@@ -69,11 +69,19 @@ namespace EjemploCRUDGridViewInLine
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "myscript", "alert('Crear nuevo registro');", true);
             }
-            if (e.CommandName == "Edit") {
+            else if (e.CommandName == "Edit") {
 
                 
                 string idregion = GridView1.Rows[rowIndex].Cells[1].Text;
 
+            }
+            else if (e.CommandName == "Select")
+            {
+
+                string idregion = GridView1.Rows[rowIndex].Cells[1].Text;
+                string descripcion = GridView1.Rows[rowIndex].Cells[2].Text;
+
+                Label1.Text = descripcion;
             }
 
         }
@@ -82,18 +90,32 @@ namespace EjemploCRUDGridViewInLine
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                e.Row.Attributes["onclick"] = this.Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
                 if ((e.Row.RowState & DataControlRowState.Edit) > 0)
                 {
                     DropDownList ddlregion = (DropDownList)e.Row.FindControl("DropDownList_region");
                     
                     //establecemos el id de la región correspondiente en el row que estamos editando:
                     ddlregion.SelectedValue = GridView1.DataKeys[e.Row.RowIndex].Values["IdRegion"].ToString();
+                    
+                   
+                    
                 }
             }
         }
 
+        protected void GridView1_PageIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
 
-        
+        protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
+        {
 
+        }
     }
 }

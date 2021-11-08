@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="EjemploCRUDGridViewInLine.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" EnableEventValidation = "false" Inherits="EjemploCRUDGridViewInLine.WebForm1" %>
 
 <!DOCTYPE html>
 
@@ -6,11 +6,16 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div>
-            <asp:GridView ID="GridView1" runat="server" DataKeyNames="id, IdRegion" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="SqlDataSource1" OnRowCommand="GridView1_RowCommand" OnRowDeleting="GridView1_RowDeleting" OnRowUpdating="GridView1_RowUpdating" Width="502px" OnRowDataBound="GridView1_RowDataBound">
+            <asp:GridView ID="GridView1" runat="server" DataKeyNames="id,IdRegion" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" OnRowCommand="GridView1_RowCommand" OnRowDeleting="GridView1_RowDeleting" OnRowUpdating="GridView1_RowUpdating" Width="100%" OnRowDataBound="GridView1_RowDataBound" ForeColor="#333333" GridLines="None" OnPageIndexChanged="GridView1_PageIndexChanged" OnRowCreated="GridView1_RowCreated">
+                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>
                     <asp:CommandField ButtonType="Button" ShowDeleteButton="True" ShowEditButton="True" ShowInsertButton="True" />
                     <asp:BoundField DataField="id" HeaderText="id" InsertVisible="False" ReadOnly="True" SortExpression="id" />
@@ -27,16 +32,19 @@
                     </asp:TemplateField>
 
                 </Columns>
-                <FooterStyle BackColor="White" ForeColor="#000066" />
-                <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-                <RowStyle ForeColor="#000066" />
-                <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                <SortedAscendingHeaderStyle BackColor="#007DBB" />
-                <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                <SortedDescendingHeaderStyle BackColor="#00547E" />
+                <EditRowStyle BackColor="#999999" />
+                <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
+                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle ForeColor="#333333" BackColor="#F7F6F3" />
+                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
             </asp:GridView>
+            <br />
+            <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Large" ForeColor="#FF3300" Text="Label"></asp:Label>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT p.id, p.Descripcion, p.IdRegion, r.Region FROM Pais AS p LEFT OUTER JOIN Catalogo_Region AS r ON p.IdRegion = r.Id"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource_region" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [Id], [Region] FROM [Catalogo_Region]"></asp:SqlDataSource>
         </div>
