@@ -124,9 +124,16 @@ namespace EjemploCRUDGridViewInLine
             DataSet ds = new DataSet();
             string querySql = "Select max(id) as Cod from Pais";
             
+            
             if (FG.ObtenerDatos(querySql, ref ds)) {
-                string cod = ds.Tables[0].Rows[0]["Cod"].ToString();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "myscript", "alert(' el último cod es :" + cod + "');", true);
+
+                //VALIDAR SI EL DATA SET TRAE TABLAS:
+                if(ds.Tables.Count > 0) { 
+
+                    string cod = ds.Tables[0].Rows[0]["Cod"].ToString();
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "myscript", "alert(' el último cod es :" + cod + "');", true);
+
+                }
             }
         }
     }
