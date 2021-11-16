@@ -59,8 +59,8 @@ namespace EjemploCRUDGridViewInLine
         protected void DropDownList_Ciudad_SelectedIndexChanged(object sender, EventArgs e)
         {
             //SOLO FALTA BUSCAR EL ROW INDEX seleccionado en el grid : 3
-
-            DropDownList ddl = (DropDownList)GridView1.Rows[3].FindControl("DropDownList_Comuna");
+            string index = "3";// Session["rowIndex"].ToString();
+            DropDownList ddl = (DropDownList)GridView1.Rows[int.Parse(index)].FindControl("DropDownList_Comuna");
             string idCiudad = HiddenField_idCiudad.Value;
             DataSet ds = new DataSet();
             llenarDdlComuna(ref ds, idCiudad);
@@ -72,6 +72,13 @@ namespace EjemploCRUDGridViewInLine
         protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridView GridView1 = Page.FindControl("GridView1") as GridView;
+            GridViewRow row = GridView1.SelectedRow;
+            Session["rowIndex"] =row.RowIndex;
         }
     }
 }
