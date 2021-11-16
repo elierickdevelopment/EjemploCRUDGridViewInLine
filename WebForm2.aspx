@@ -18,16 +18,16 @@
     <form id="form1" runat="server">
         <div>
             <asp:HiddenField ID="HiddenField_idCiudad" runat="server" />
-            <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" DataSourceID="SqlDataSource_grid"  AutoGenerateColumns="False" OnRowDataBound="GridView1_RowDataBound">
+            <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" DataSourceID="SqlDataSource_grid"  AutoGenerateColumns="False" OnRowDataBound="GridView1_RowDataBound" OnRowUpdating="GridView1_RowUpdating">
                 <Columns>
                         <asp:TemplateField HeaderText="Ciudad">
                         <EditItemTemplate>
                         <asp:DropDownList ID="DropDownList_Ciudad" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_Ciudad_SelectedIndexChanged"
-                            DataSourceID="SqlDataSource_Ciudad" DataTextField="Descripcion" DataValueField="Id" onChange="SetIdCiudad(this);">
+                            DataSourceID="SqlDataSource_Ciudad" DataTextField="Ciudad" DataValueField="Id" onChange="SetIdCiudad(this);">
                         </asp:DropDownList>
                     </EditItemTemplate>
                          <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
+                        <asp:Label ID="Label1_ciudad" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                     </ItemTemplate>
                     </asp:TemplateField>
                                        <asp:TemplateField HeaderText="Comuna">
@@ -36,14 +36,14 @@
                         </asp:DropDownList>
                     </EditItemTemplate>
                          <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
+                        <asp:Label ID="Label_comuna" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                     </ItemTemplate>
                     </asp:TemplateField>
                         <asp:CommandField ShowEditButton="True" />
                 </Columns>
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource_grid" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT co.Id as IdComuna, co.Descripcion , ci.Descripcion as Ciudad FROM Comuna co, Ciudad  ci where co.IdCiudad = ci.Id"></asp:SqlDataSource>
-            <asp:SqlDataSource ID="SqlDataSource_Ciudad" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [Id], [Descripcion] FROM [Ciudad]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource_Ciudad" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [Id], [Descripcion] as Ciudad FROM [Ciudad]"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource_Comuna" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [Id], [Descripcion] FROM [Ciudad]"></asp:SqlDataSource>
         </div>
                 

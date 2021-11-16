@@ -48,10 +48,6 @@ namespace EjemploCRUDGridViewInLine
                     llenarDdlComuna(ref ds, idCiudad);
                     ddlComuna.DataSource = ds.Tables[0].DefaultView;
                     ddlComuna.DataBind();
-                    //int cont = ddlComuna.Items.Count;
-                    //ddlComuna.SelectedValue = GridView1.DataKeys[e.Row.RowIndex].Values["IdRegion"].ToString();
-
-
 
                 }
             }
@@ -62,15 +58,20 @@ namespace EjemploCRUDGridViewInLine
 
         protected void DropDownList_Ciudad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //llenarDdlComuna(ddlGeneral);
-            //int cant = ddlGeneral.Items.Count;
+            //SOLO FALTA BUSCAR EL ROW INDEX seleccionado en el grid : 3
+
+            DropDownList ddl = (DropDownList)GridView1.Rows[3].FindControl("DropDownList_Comuna");
             string idCiudad = HiddenField_idCiudad.Value;
-            //string idCiudad = ddlCiudadGlobal.SelectedValue;
             DataSet ds = new DataSet();
             llenarDdlComuna(ref ds, idCiudad);
-            ddlComunaGloobal.DataSource = ds.Tables[0].DefaultView;
-            ddlComunaGloobal.DataBind();
+            ddl.DataSource = ds.Tables[0].DefaultView;
+            ddl.DataBind();
 
+        }
+
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            
         }
     }
 }
